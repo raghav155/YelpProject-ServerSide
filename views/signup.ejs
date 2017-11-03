@@ -1,0 +1,102 @@
+<% include partials/header.ejs %>
+
+<div id="signuppage">
+    <div style="background: #d32323 url(https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/c146b0884f6a/assets/img/structural/header_stars.png) no-repeat center;height: 70px;text-align: center;margin-bottom: 30px" class="logonav">
+        <a href="/"><img width="110px" src="../images/Yelp_trademark_RGB.png" alt="Yelp Logo"></a>
+    </div>
+
+    <div style="width: 70%;" class="ui container">
+
+        <% if(message.length > 0){%>
+        <div style="background-color: #f2dede;color: #a94465;" class="ui segment">
+            <p><%= message%></p>
+        </div>
+
+       <%}%>
+        <div class="ui grid">
+            <div class="eight wide column">
+                <div style="width: 80%;" class="ui container">
+                    <div style="text-align: center;padding: 10px" class="details">
+                        <h2 style="color: #d32323;margin-bottom: 5px">Sign Up for Yelp</h2>
+                        <h4 style="margin-top: 0px;">Connect with great local business</h4>
+                        <p style="font-size: 11px;color: #666666;margin-bottom: 20px">By signing up, you agree to Yelp's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+                        <form action="/auth/facebook" method="get">
+                            <button type="submit" style="margin-bottom: 10px" class="ui facebook button">
+                                <i class="facebook icon"></i>
+                                Sign Up with Facebook
+                            </button>
+                        </form>
+                        <form action="/auth/google" method="get">
+                        <button class="ui google plus button">
+                            <i class="google plus icon"></i>
+                            Sign Up with Google Plus
+                        </button>
+                        </form>
+                        <p style="font-size: 11px;color: #666666;margin-top: 5px">Don't worry we will never post without your permission</p>
+                        <div style="margin: 30px 0 30px 0" class="ui horizontal divider">
+                            Or
+                        </div>
+
+                        <form action="/signup" method="post">
+                            <div class="ui mini form">
+                                <div class="two fields">
+                                    <div class="field">
+                                        <input type="text" placeholder="First Name" name="firstName" required>
+                                    </div>
+                                    <div class="field">
+                                        <input type="text" placeholder="Last Name" name="lastName" required>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <input type="email" placeholder="Email" name="email" required>
+                                </div>
+                                <div class="field">
+                                    <input type="password" placeholder="Password" name="password" required>
+                                </div>
+                                <div class="field">
+                                    <input type="text" placeholder="Zip Code" name="zipcode" required>
+                                </div>
+
+
+
+                                <button class="fluid ui red button" type="submit">Submit</button>
+                            </div>
+                        </form>
+
+                        <div>
+                            <p style="font-size: 11px;color: #666666;float: right;margin-top: 15px">Already on yelp? <a href="/login">Log in</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="eight wide column">
+                <div style="height: 200px;position: relative;top: 100px;" class="image-container">
+                    <img style="position:relative;left: 60px;" src="https://s3-media4.fl.yelpcdn.com/assets/2/www/img/1e82406ff345/signup/signup_illustration.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="js/jquery.js"></script>
+<script src="./css/semantic/dist/semantic.js"></script>
+
+<% include partials/footer.ejs %>

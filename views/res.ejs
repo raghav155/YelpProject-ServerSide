@@ -1,0 +1,598 @@
+<% include partials/header.ejs %>
+<title><%= rs.place%></title>
+</head>
+<body>
+<div id="res">
+
+    <div style="background: #d32323 url(https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/c146b0884f6a/assets/img/structural/header_stars.png) no-repeat center;height: 90px;" class="logonav">
+        <div style="width: 75%" class="ui container grid">
+            <div class="two wide column">
+               <a href="/"><img width="110px" src="../images/Yelp_trademark_RGB.png" alt="Yelp Logo"></a>
+            </div>
+            <div class="eleven wide column">
+                <div style="padding: 0px;height: 50px;margin-top: 20px" id="search-bar">
+                    <div style="width: 46%;float: left;background-color: white;height: 40px;border-top-left-radius: 5px;border-bottom-left-radius: 5px">
+                        <div style="padding: 0px;width: 100%;height: 40px;overflow: hidden">
+                            <span style="font-size: 18px;font-weight: 700;color: #666666;padding: 7px;display: inline-block;height: 40px;">Find</span>
+                            <input class="search" style="width: 80%;height: 100%;position: relative;top: -1px;border: none;" type="text" placeholder="burgers, barbers, spas, handymen...">
+                        </div>
+                    </div>
+                    <div style="width: 46%;float: left;height: 40px;background-color: white;">
+                        <div style="padding: 0px;width: 100%;height: 40px;overflow: hidden">
+                            <span style="font-size: 18px;font-weight: 700;color: #666666;padding: 7px;display: inline-block;height: 40px;border-left: 1px solid #CCCCCC">Near</span>
+                            <input class="search" style="width: 80%;height: 100%;position: relative;top: -1px;border: none;" type="text" placeholder="New Delhi, Chandigarh, Mumbai...">
+                        </div>
+                    </div>
+                    <div style="float: left;width: 8%;height: 40px;">
+                        <button style="border-radius: 0px;background-color: #bd1f1f;color:white" class="ui  button"><i style="font-size: 1.4em" class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <%if(user){%>
+                <div style="padding-top: 20px;"  class="ui buttons">
+                    <div style="text-transform: capitalize;padding: 7px;background-color: #ba1e2b;color: white;"  class="ui button">
+                        <img style="display: inline;"  width="25px" height="25px" class="ui image centered circular" src=" <%= user.google.name == undefined ? user.userimage == '' ? "./images/male.png" : "./images/uploads/" + user.userimage : user.userimage%>">
+                        <div style="display: inline;">
+                            &nbsp;<%= user.google.name == undefined ? user.local.firstName : user.google.name.split(' ')[0] %>
+                        </div>
+                    </div>
+                    <div id="userbtn" style="background-color: #ba1e2b;color: white;" class="ui floating dropdown icon button">
+                        <i class="dropdown icon"></i>
+                        <div style="border-radius: 0px;" class="menu">
+                            <a href="/profile" class="item"><i class="icon user circle outline"></i> Profile</a>
+                            <a href="/new" class="item"><i class="database icon"></i> Add new place</a>
+                            <a href="#" class="item"><i class="bookmark icon"></i> Bookmarks</a>
+                            <a href="#" class="item"><i class="marker icon"></i> Been here</a>
+                            <a href="#" class="item"><i class="retweet icon"></i> Reviews (<%= user.reviews != -1 ? user.reviews + 1 : 0%>)</a>
+                            <div class="divider"></div>
+                            <a href="/logout" class="item"><i class="icon remove user"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+                <%}else{%>
+                <a style="background-color: #bd1f1f;color:white;margin-top: 20px" href="/signup" class="ui button">SignUp</a>
+
+                <%}%>
+            </div>
+        </div>
+    </div>
+
+        <div style="height: 40px;background-color: white">
+
+        </div>
+
+
+        <div style="background-color: #f3f3f3;" id="rescontent">
+            <div class="ui container">
+            <div style="padding: 20px;font-size: 11px;" class="ui breadcrumb ">
+                <a style="color: #9a95a6;" class="section" href="/">Home</a>
+                <i class="right angle icon divider"></i>
+                <a style="color: #9a95a6;" class="section">India</a>
+                <i class="right angle icon divider"></i>
+                <a style="color: #9a95a6;" class="section">Delhi-NCR</a>
+                <i class="right angle icon divider"></i>
+                <a style="color: #9a95a6;" class="active section" href="/biz/<%= rs._id%>"><%= rs.place%></a>
+
+            </div>
+            </div>
+            <div id="maincontent" style="display: grid;grid-template-columns: 2fr 1fr" class="ui container">
+
+                <div style="margin-bottom: 500px" id="firstpart">
+                    <div  id="resfront">
+                        <div>
+                           <img style="border-top-left-radius: 4px;border-top-right-radius: 4px" class="ui  image" height="300px" width="100%" src="<%= rs.coverimage%>" alt="">
+                        </div>
+                        <div style="padding: 20px;background-color: #fafafa;border: 1px solid #e7e7e7;margin-bottom: 20px;">
+                            <div id="headerpart">
+                                <div>
+                                    <h2 style="font-size: 30px;float: left;color: #33373D;text-transform: capitalize"><%= rs.place%></h2>
+                                    <div style="float: right;background-color: #5ba829;color: white;padding: 8px;" class="ui huge label"><span style="font-size: 25px">4.0/</span>5</div>
+                                </div>
+                                <div style="clear: both;">
+
+                                </div>
+
+                                <div style="margin-top: 25px;width: 30%;">
+                                    <div>
+                                        <h4><%= rs.address%></h4>
+                                        <a style="color: #cb202d;" href="<%= rs.website%>"><%= rs.website%></a>
+                                    </div>
+                                </div>
+                                <div class="ui divider"></div>
+                                <div id="links">
+                                    <a style="color: #7b8489;border: 1px solid #e7e7e7;" href="#" class="ui button"><i class="icon bookmark"></i>Bookmark</a>
+                                    <a style="color: #7b8489;border: 1px solid #e7e7e7;" href="#" class="ui button"><i class="icon suitcase"></i>Been Here</a>
+                                    <% if(user){%>
+                                     <a id="addrevbtn1" style="color: #7b8489;border: 1px solid #e7e7e7;"  class="ui button"><i class="icon retweet"></i>Add a Review</a>
+                                    <%}else {%>
+                                       <a href="/login" style="color: #7b8489;border: 1px solid #e7e7e7;"  class="ui button"><i class="icon retweet"></i>Add a Review</a>
+                                    <%}%>
+                                    <a style="color: #7b8489;border: 1px solid #e7e7e7;" href="#" class="ui button"><i class="icon empty star"></i>Rate</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menubar" style="margin-bottom: 20px;" class="ui three item massive menu">
+                            <a id="Overview" href="./<%= rs._id%>" class="active item">Overview</a>
+                            <a id="Reviews" class="item">Reviews (<%= rs.reviews%>)</a>
+                            <a id="Photos"  class="item">Photos (<%= rs.moreimages.length%>)</a>
+                        </div>
+
+                        <div id="resdetails">
+                            <div id="overview" style="padding: 20px;background-color: white;border-top-left-radius: 5px;border-top-right-radius: 5px">
+                                <div style="display:grid;grid-template-columns: 1fr 1fr 1fr;grid-gap: 30px">
+                                    <div>
+                                        <div style="margin-bottom: 30px" id="phnumb">
+                                            <h3 style="margin: 0px;color: #33373d;">Phone Number</h3>
+                                            <h3 style="margin-top: 5px;color: #099e44;"><%= rs.phone%></h3>
+                                            <span style="font-size: 13px;color: #89959b">Table Bookings Recommended</span>
+                                        </div>
+                                        <div id="cuisines">
+                                            <h3 style="margin: 0;color: #33373d">Cuisines</h3>
+                                            <p style="margin-top: 5px;color: #cb202d;font-size: 13px">North-Indian, Mughlia, Chinese, Continental</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="margin-bottom: 30px" id="openhours">
+                                            <h3 style="margin: 0px;color: #33373d;">Opening Hours</h3>
+                                            <h5 style="margin-top: 5px;color: #33373d;">Today &nbsp; 12 Noon to 12 Midnight</h5>
+                                        </div>
+
+                                        <div style="margin-bottom: 30px" id="resaddress">
+                                            <h3 style="margin: 0px;color: #33373d;">Address</h3>
+                                            <p style="margin-top: 5px;color: #33373d;font-size: 13px;"><%= rs.address%></p>
+                                        </div>
+
+                                        <div style="margin-bottom: 30px" id="restags">
+                                            <h3 style="margin: 0px;color: #33373d;">Tags</h3>
+                                            <p style="margin-top: 5px;color: #cb202d;font-size: 13px;"><%= rs.tags%></p>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div>
+                                        <div id="resdirections">
+                                            <h2><i class="share square icon"></i><p  style="font-size: 19px;display: inline;color: #33373d;">Directions</p></h2>
+                                            <div style="width: 300px;height: 300px;" id="map">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background-color: white;padding: 20px;margin-top: 20px;border-top-left-radius: 5px;border-top-right-radius: 5px" id="resphotos">
+                            <h3>Photos</h3>
+                            <div id="photoblog">
+                                <div style="margin-bottom: 20px" class="ui images">
+                                    <% for(let i = 0 ; i  <5 ;i++){%>
+                                    <% if(i < rs.moreimages.length){%>
+                                       <img style="border-radius: 5px" width="135px" height="140px" src="<%= rs.moreimages[i]%>" alt="">
+                                    <%}%>
+                                    <%}%>
+                                </div>
+                                <div>
+                                    <p style="float: right;font-size: 15px;"><a id="viewall">View all photos <i class="icon arrow right"></i></a></p>
+                                </div>
+
+                                <%if(user){%>
+                                <a id="addmorep" style="font-size: 30px;"><i class="icon image"></i><p style="display: inline;font-size: 20px;">Add More Photos</p></a>
+                                <form action="./<%= rs._id%>/newimage" method="post">
+                                    <div id="addmoreimg">
+                                    <div id="addurlbar" style="margin-top: 20px;" class="ui fluid action input ">
+                                        <input name="newimage" type="text" placeholder="Search...">
+                                        <button type="submit" class="ui button">Add Source URL</button>
+                                    </div>
+                                    </div>
+                                </form>
+
+                                <%}%>
+                            </div>
+                        </div>
+
+                        <div style="background-color: white;padding: 20px;margin-top: 20px;border-top-left-radius: 5px;border-top-right-radius: 5px;display: none;" id="photocollage">
+                            <div>
+                                <h3 style="margin-bottom: 50px;float: left;"><%= rs.place%> Photos</h3>
+                                <button style="float: right;"  class="ui button red">All Photos</button>
+                            </div>
+                            <div style="clear: both"></div>
+                            <div style="margin-bottom: 20px" class="ui images">
+                                <% for(let i = 0 ; i  <rs.moreimages.length ;i++){%>
+                                <% if(i < rs.moreimages.length){%>
+                                <img style="border-radius: 5px" width="135px" height="140px" src="<%= rs.moreimages[i]%>" alt="">
+                                <%}%>
+                                <%}%>
+                            </div>
+
+                        </div>
+
+                        <div id="resreviews">
+                        <%if(user){%>
+
+                            <div style="padding: 20px;margin-top: 20px;background-color: white;border-top-left-radius: 5px;border-top-right-radius: 5px" id="writeareview">
+                                <!--<h3 style="color: rgba(0,0,0,.5);">Write a Review <i class="icon comment"></i></h3>-->
+                                <!--<div class="ui form">-->
+                                    <!--<div class="field">-->
+                                        <!--<textarea name="reviewcontent" rows="8"></textarea>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <a id="addreview" href="#ex2" style="margin-top: 20px;color: white;" class="ui primary button"><i class="icon comment"></i>Add a Review</a>
+                                <div id="ex2" style="display:none;z-index: 20">
+
+                                    <form style="display: inline;" action="./<%= rs._id%>/newreview" method="post">
+                                        <div style="margin-bottom: 20px" class="ui form">
+                                            <div class="field">
+                                                <label style="color: rgba(0,0,0,.5);">Write your Review</label>
+                                                <textarea name="reviewcontent"></textarea>
+                                            </div>
+
+                                        </div>
+                                        <div>
+                                          <div style="margin-bottom: 20px;float: left;" id="rateYo"></div>
+                                            <div style="float: left;width: 50px;" class="ui input">
+                                                <input id="ratingtext" type="text" name="rating">
+                                            </div>
+                                        </div>
+                                        <div style="clear:both;"></div>
+
+
+                                        <button type="submit" class="ui primary button">
+                                            Save
+                                        </button>
+                                    </form>
+                                    <a id="discardbtn" href="#" rel="modal:close" class="ui button">
+                                        Discard
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        <%}%>
+
+                        <div style="padding: 20px;background-color: white;margin-top: 20px;border-top-left-radius: 5px;border-top-right-radius: 5px">
+                            <h3>Reviews</h3>
+                            <% if(rs.ReviewsSec.length >= 2){%>
+                            <div style="display: inline;" class="ui mini images">
+                                <img class="ui image" src="../images/Male-Avatar-Cool-Sunglasses-icon.png">
+                                <img style="position:relative;left: -25px" class="ui image" src="../images/Male-Avatar-Cool-Sunglasses-icon.png">
+                                <img style="position:relative;left: -50px" class="ui image" src="../images/Male-Avatar-Cool-Sunglasses-icon.png">
+                            </div>
+                            <div style="display: inline;margin-left: -30px"><span style="text-transform: capitalize;color: #cb202d;"><b><%= rs.ReviewsSec[0].Author.username%></b></span> and <span style="color: #cb202d;"><b><%= rs.reviews - 1%> others</b></span> have reviewed this place</div>
+                            <%}%>
+                            <div class="ui divider"></div>
+                        </div>
+
+                        <%rs.ReviewsSec.forEach(function (review) {%>
+
+                           <div style="padding: 20px;background-color: white;margin-bottom: 10px;border-top-left-radius: 5px;border-top-right-radius: 5px">
+                               <div id="revheader" class="ui grid">
+                                   <div class="two wide column">
+
+                                       <img width="70px" class="ui image circular" src="<%= review.Author.islocal == true ? "../images/uploads/" + review.Author.image : review.Author.image%>" alt="">
+                                   </div>
+
+                                   <div class="fourteen wide column">
+                                       <h3 style="text-transform: capitalize;margin-bottom: 0px;color: rgba(0,0,0,.7);"><%= review.Author.username%></h3>
+                                       <span style="font-size: 11px;color: #98959b;"><%= review.Author.reviewNum%> Reviews</span>
+                                   </div>
+                               </div>
+                               <span style="font-size: 11px;color: #98959b;margin: 20px 0 20px 0;display: block;"><%= review.date%></span>
+
+                               <p style="font-size: 13px;"><span style="font-weight: 800;font-size: 12px;">RATED </span><span style="display: inline;padding: 3px 9px 3px 9px" class="ui mini label green"><%= review.ratings%>.0</span> &nbsp;<span class="revdata"><%= review.review%></span></p>
+                               <div>
+
+                                   <% if(user && review.Author.id.toString() === user._id.toString()){%>
+                                   <div style="float: left;" class="ui labeled button likebtn" tabindex="0">
+                                       <div class="ui button">
+                                           <i class="heart icon"></i> Like
+                                       </div>
+                                       <a class="ui basic label">
+                                           <%= review.likes%>
+                                       </a>
+                                   </div>
+                                   <div style="float: right" class=" ui buttons">
+                                       <a href="#ex1" class="ui button editbtn">Edit</a>
+                                       <a class="ui button deletebtn">Delete</a>
+                                   </div>
+                                   <div style="clear: both"></div>
+                                   <%}else{%>
+
+                                   <div class="ui labeled button likebtn" tabindex="0">
+                                       <div class="ui button">
+                                           <i class="heart icon"></i> Like
+                                       </div>
+                                       <a class="ui basic label">
+                                           <%= review.likes%>
+                                       </a>
+                                   </div>
+                                   <%}%>
+                                   <div id="ex3" style="display:none;">
+
+                                       <form style="display: inline;" action="./<%= review._id%>/<%= rs._id%>/deleterev" method="post">
+                                           <h4>Are you sure to delete this review.</h4>
+
+                                           <button type="submit" class="ui primary button">
+                                               Confirm
+                                           </button>
+                                       </form>
+
+
+                                       <a  rel="modal:close" id="disbtn2" class="ui button">
+                                           Discard
+                                       </a>
+
+                                   </div>
+
+                                   <div id="ex1" style="display:none;">
+
+                                       <form style="display: inline;" action="./<%= review._id%>/editrev" method="post">
+                                       <div style="margin-bottom: 20px" class="ui form">
+                                           <div class="field">
+                                               <label>Edit Review</label>
+                                               <textarea name="editcontent" id="textrev"></textarea>
+                                           </div>
+
+                                       </div>
+                                       <button type="submit" class="ui primary button">
+                                           Save
+                                       </button>
+                                       </form>
+
+
+                                       <a  rel="modal:close" id="disbtn" class="ui button">
+                                           Discard
+                                       </a>
+
+                                   </div>
+                               </div>
+                           </div>
+
+
+                        <%})%>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div style="padding: 15px;" id="secondpart">
+                    <div id="resfront2" style="border-radius: 4px;padding: 10px;background-color: white">
+                        <h3 style="font-size: 22px;margin-bottom: 0px">Dine-Out Restaurants</h3>
+                        <div>
+                            <span style="font-size: 14px;color: rgba(0,0,0,.4);float: left;">Go out for a meal</span>
+                            <img style="float: right;position:relative;top: -40px;" width="60px" src="https://b.zmtcdn.com/images/search_tokens/app_icons/category_2.png?fit=around%7C88%3A88&crop=88%3A88%3B%2A%2C%2A" alt="">
+                        </div>
+                        <div style="clear: both;position:relative;top: -40px;"></div>
+                        <div style="width: 100%;margin-left: 2px" class="ui grid">
+                            <% for(let i = 0 ; i < 12 ;i++){%>
+
+                            <% if(i < data.length){%>
+
+                            <div style="padding: 2px;margin-right: 6px;margin-bottom: 10px" class="five wide column">
+                                <img style="margin-right: 9.5px;border-radius: 5px;margin-bottom: 5px" width="93.5px;" height="95px" class="ui image" src="<%= data[i].coverimage%>">
+                                <span style="font-size: 11.5px;text-transform: capitalize;color: #33373D;"><a href="./<%= data[i]._id%>"><%= data[i].place%></a></span>
+                                <div style="margin-bottom: 5px"></div>
+                                <p style="font-size: 10.5px;color: rgba(0,0,0,.5);"><%= data[i].description.substr(0,40) + " ...."%></p>
+                            </div>
+
+                            <%}%>
+
+
+
+                            <%}%>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+             </div>
+
+        </div>
+
+
+
+
+
+</div>
+
+
+
+<!--<script src="./js/jquery.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./css/semantic/dist/semantic.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6jEZLB8qrRJ7AI9K-HfF_x9F2JPA7SjI&callback=initMap">
+</script>
+<script src="./js/jquery.modal.min.js"></script>
+<script src="./js/jquery.rateyo.min.js"></script>
+<script>
+
+
+
+    if(document.getElementById('addmoreimg')) {
+        document.getElementById('addmoreimg').style.display = 'none';
+    }
+    var lat = <%= rs.latitude%>;
+        var long = <%= rs.longitude%>
+    function initMap() {
+        var uluru = {lat: lat, lng: long};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: uluru
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+    }
+
+    $('#addmorep').on('click',function () {
+        $('#addurlbar').addClass('slideInDown')
+        document.getElementById('addmoreimg').style.display = 'block';
+
+    });
+//    $("#addrevbtn1").click(function(e) {
+//        e.preventDefault();
+//        $('html, body').animate({
+//            scrollTop: $("#writeareview").offset().top
+//        }, 1000);
+//    });
+
+    $('#addrevbtn1').click(function () {
+        $('#addreview').click();
+    })
+
+    $('.likebtn').on('click',function () {
+
+        console.log('hii')
+    })
+
+//    $('#editbtn').animatedModal();
+    $('.editbtn').on('click',function () {
+        //let idx = this.getAttribute('saveno');
+       // console.log(idx);
+        //$('#ex1').attr('index',idx);
+//        console.log($('#ex1').attr('index'))
+
+       // console.log($('.revdata')[idx]);
+        //console.log(idx)
+        let reqrev = $(this).parent().parent().prev().children()[2];
+       // console.log(reqrev.innerText);
+        new Promise(function (resolve,reject) {
+            document.getElementById('textrev').value = reqrev.innerText;
+            $('#menubar').css('display','none');
+            resolve();
+        }).then(function () {
+            $('#ex1').modal({
+                fadeDuration : 200,
+                escapeClose: false,
+                clickClose: false,
+                showClose: false
+            });
+
+        })
+        $('#disbtn').on('click',function () {
+                $('#menubar').css('display','flex');
+
+        })
+        $('#discardbtn').on('click',function () {
+            $('#menubar').css('display','flex');
+        });
+
+
+//          console.log(document.getElementById('textrev').value)
+//          $('#textrev').append(reqrev.innerText)
+//
+
+
+    });
+    $('#disbtn2').on('click',function () {
+        $('#menubar').css('display','flex');
+
+    })
+
+//    $('#Overview').on('click',function () {
+//        setTimeout(function () {
+//            $('#resdetails').css('display','block');
+//            $('#resphotos').css('display','block');
+//            $('#resreviews').css('display','block');
+//            $('#Overview').addClass('active');
+//            $('#Reviews').removeClass('active');
+//            $('#Photos').removeClass('active');
+//            $('#photocollage').css('display','none');
+//        },1000)
+//
+//
+//    });
+
+    $('#Reviews').on('click',function () {
+
+        setTimeout(function () {
+            $('#resdetails').css('display','none');
+            $('#resphotos').css('display','none');
+            $('#resreviews').css('display','block');
+            $('#Overview').removeClass('active');
+            $('#Reviews').addClass('active');
+            $('#Photos').removeClass('active');
+            $('#photocollage').css('display','none');
+        },1000)
+
+
+    })
+    $('#Photos').on('click',function () {
+        setTimeout(function () {
+            $('#resdetails').css('display','none');
+            $('#resphotos').css('display','none');
+            $('#resreviews').css('display','none');
+            $('#Overview').removeClass('active');
+            $('#Reviews').removeClass('active');
+            $('#Photos').addClass('active');
+            $('#photocollage').css('display','block');
+        },1000)
+
+    });
+    $('#viewall').click(function () {
+        $('#Photos').click();
+    })
+
+    $(window).scroll(function(e){
+        var $el = $('#menubar');
+        var isPositionFixed = ($el.css('position') == 'fixed');
+        if ($(this).scrollTop() > 750 && !isPositionFixed){
+            $('#menubar').css({'position': 'fixed', 'top': '0px','width' : '751.33px','z-index' : '10','margin-top' : '0px'});
+        }
+        if ($(this).scrollTop() < 750 && isPositionFixed)
+        {
+            $('#menubar').css({'position': 'static', 'top': '0px'});
+        }
+    });
+
+    $('#addreview').on('click',function () {
+        $('#ex2').modal({
+            fadeDuration : 200,
+            escapeClose: false,
+            clickClose: false,
+            showClose: false
+        });
+        $('#menubar').css('display','none');
+        $('#ratingtext').val('3');
+        $('#rateYo').rateYo({
+            starWidth : "30px",
+            ratedFill: "#E74C3C",
+            rating : "60%",
+            fullStar : true,
+            onSet: function (rating, rateYoInstance) {
+
+                $('#ratingtext').val(rating/20);
+            }
+        })
+
+
+    });
+
+    $('.deletebtn').click(function () {
+        $('#ex3').modal({
+            fadeDuration : 200,
+            escapeClose: false,
+            clickClose: false,
+            showClose: false
+        })
+        $('#menubar').css('display','none');
+    });
+
+    $('#userbtn').dropdown();
+
+
+
+</script>
+
+
+<% include partials/footer.ejs %>

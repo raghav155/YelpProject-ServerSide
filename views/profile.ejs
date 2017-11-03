@@ -1,0 +1,185 @@
+<% include partials/header.ejs%>
+
+<title> <%= user.local.firstName != undefined ? user.local.firstName : (user.facebook.name != undefined ? user.facebook.name : user.google.name)%></title>
+</head>
+<body>
+
+<div id="profile">
+<div style="background: #d32323 url(https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/c146b0884f6a/assets/img/structural/header_stars.png) no-repeat center;height: 90px;margin-bottom: 30px" class="logonav">
+    <div style="width: 75%" class="ui container grid">
+        <div class="two wide column">
+            <a href="/"><img width="110px" src="../images/Yelp_trademark_RGB.png" alt="Yelp Logo"></a>
+        </div>
+        <div class="eleven wide column">
+            <div style="padding: 0px;height: 50px;margin-top: 20px" id="search-bar">
+                <div style="width: 46%;float: left;background-color: white;height: 40px;border-top-left-radius: 5px;border-bottom-left-radius: 5px">
+                    <div style="padding: 0px;width: 100%;height: 40px;overflow: hidden">
+                        <span style="font-size: 18px;font-weight: 700;color: #666666;padding: 7px;display: inline-block;height: 40px;">Find</span>
+                        <input class="search" style="width: 80%;height: 100%;position: relative;top: -1px;border: none;" type="text" placeholder="burgers, barbers, spas, handymen...">
+                    </div>
+                </div>
+                <div style="width: 46%;float: left;height: 40px;background-color: white;">
+                    <div style="padding: 0px;width: 100%;height: 40px;overflow: hidden">
+                        <span style="font-size: 18px;font-weight: 700;color: #666666;padding: 7px;display: inline-block;height: 40px;border-left: 1px solid #CCCCCC">Near</span>
+                        <input class="search" style="width: 80%;height: 100%;position: relative;top: -1px;border: none;" type="text" placeholder="New Delhi, Chandigarh, Mumbai...">
+                    </div>
+                </div>
+                <div style="float: left;width: 8%;height: 40px;">
+                    <button style="border-radius: 0px;background-color: #bd1f1f;color:white" class="ui  button"><i style="font-size: 1.4em" class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="three wide column">
+            <div style="padding-top: 20px;"  class="ui  buttons">
+                <div style="text-transform: capitalize;padding: 7px;background-color: #ba1e2b;color: white;"  class="ui button">
+                    <img style="display: inline;"  width="25px" height="25px" class="ui image centered circular" src=" <%= user.google.name == undefined ? user.userimage == '' ? "./images/male.png" : "./images/uploads/" + user.userimage : user.userimage%>">
+                    <div style="display: inline;">
+                        &nbsp;<%= user.google.name == undefined ? user.local.firstName : user.google.name.split(' ')[0] %>
+                    </div>
+                </div>
+                <div id="userbtn" style="background-color: #ba1e2b;color: white;" class="ui floating dropdown icon button">
+                    <i class="dropdown icon"></i>
+                    <div style="border-radius: 0px;" class="menu">
+                        <a href="/profile" class="item"><i class="icon user circle outline"></i> Profile</a>
+                        <a href="/new" class="item"><i class="database icon"></i> Add new place</a>
+                        <a href="#" class="item"><i class="bookmark icon"></i> Bookmarks</a>
+                        <a href="#" class="item"><i class="marker icon"></i> Been here</a>
+                        <a href="#" class="item"><i class="retweet icon"></i> Reviews (<%= user.reviews != -1 ? parseInt(user.reviews)  + 1 : 0%>)</a>
+                        <div class="divider"></div>
+                        <a href="/logout" class="item"><i class="icon remove user"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="userdata" style="background-color: #f3f3f3;">
+<div style="background-color: white;padding: 10px;border: 1px solid #e7e7e7;border-radius: 4px;position:relative;top: 30px;width: 80%;margin-bottom: 50px" id="usercontent;" class="ui container">
+<div >
+    <img  width="150px" height="150px" class="ui image centered circular" src=" <%= user.google.name == undefined ? user.userimage == '' ? "./images/male.png" : "./images/uploads/" + user.userimage : user.userimage%>">
+    <div style="text-align: center;margin-top: 20px">
+
+        <% if(msg.length > 0){%>
+            <div style="width: 70%;margin: 0 auto;margin-bottom: 20px;background-color: #d32323;color:white;" class="ui inverted segment">
+                <p><%= msg%></p>
+            </div>
+
+        <%}%>
+
+        <%if(user.google.name == undefined){%>
+        <button style="margin-bottom: 20px" id="uploadbtn" class="ui teal button"><i class="ui icon upload"></i>Upload new image</button>
+        <%}%>
+        <form id="uploadimg" action="/profile" method="post" enctype="multipart/form-data">
+            <div class="ui mini action input">
+                <input name="myImage" type="file" placeholder="Search...">
+                <button type="submit" class="ui button">Upload Image</button>
+            </div>
+        </form>
+    </div>
+    <div style="text-align: center;margin-top: 20px">
+        <h2 style="text-transform: capitalize;margin-bottom: 0px"><%= user.local.firstName != undefined ? user.local.firstName : (user.facebook.name != undefined ? user.facebook.name : user.google.name)%></h2>
+        <h5 style="margin-top: 0px;color: grey;"><i class="ui icon marker"></i>Delhi NCR</h5>
+    </div>
+</div>
+    <div class="ui divider"></div>
+    <div>
+        <img  width="160px" class="ui image centered circular" src="./images/screenshotAtUploadCC_1508267055424.png" alt="">
+    </div>
+</div>
+
+    <div style="padding: 25px;" id="userprofile" class="ui container">
+
+        <div class="ui relaxed grid">
+
+                <div class="four wide column ">
+                    <div class="ui fluid vertical menu">
+                        <a class="active teal item">
+                            Dineline
+
+                        </a>
+                        <a class=" teal item">
+                            Reviews
+                            <div class="ui teal left pointing label"><%= user.reviews + 1%></div>
+                        </a>
+                        <a class="item">
+                            Photos
+                            <div class="ui label"><%= user.photos%></div>
+                        </a>
+                        <a class="item">
+                            Followers
+                            <div class="ui label">0</div>
+                        </a>
+                        <a class="item">
+                            Bookmarks
+                            <div class="ui label">0</div>
+                        </a>
+                        <a class="item">
+                            Been There
+                            <div class="ui label">0</div>
+                        </a>
+
+                    </div>
+                </div>
+                <div  class="eight wide column ">
+                    <h4 style="padding: 0px;">Dineline</h4>
+                    <div  style="padding: 10px;background-color: white;font-size: 13px;border: 1px solid #e7e7e7;border-radius: 4px">
+                        <p>Started using Yelp</p>
+                        <p>Joined Yelp on <%= user.joinedDate%></p>
+                    </div>
+                </div>
+                <div style="padding: 20px;background-color: white;border-radius: 4px;border: 1px solid #e7e7e7;" class="four wide column ">
+                    <h4>Suggested foodies to follow</h4>
+                    <div class="ui middle aligned selection list">
+                        <% for(let i = 0 ; i < 10 ;i++){%>
+                        <%if(i < users.length && !user._id.equals(users[i]._id)){%>
+                        <div class="item">
+                            <img class="ui avatar image" src="<%= users[i].google.name == undefined ? users[i].userimage == '' ? "./images/male.png" : "./images/uploads/" + users[i].userimage : users[i].userimage%>">
+                            <div class="content">
+                                <div style="text-transform: capitalize" class="header"><%= users[i].local.firstName != undefined ? users[i].local.firstName + " " + users[i].local.lastName : users[i].google.name != undefined ? users[i].google.name : users[i].facebook.name%></div>
+
+                            </div>
+                        </div>
+                        <%}%>
+                        <%}%>
+
+                    </div>
+                </div>
+
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./css/semantic/dist/semantic.js"></script>
+<script>
+    $('#userbtn').dropdown();
+    $('#uploadimg').css('display','none');
+    
+    $('#uploadbtn').on('click',function () {
+        $('#uploadimg').fadeIn();
+        $('#uploadbtn').css('display','none')
+    })
+</script>
+
+
+<% include partials/footer.ejs%>

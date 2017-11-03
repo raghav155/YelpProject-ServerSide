@@ -1,0 +1,128 @@
+<% include partials/header.ejs %>
+<title>Yelp..The Food Ordering Platform</title>
+</head>
+<body>
+<div id="showpage">
+    <div style="height: 600px;width: 70%;" class="ui container">
+        <div id="nav" style="height: 70px;padding: 20px">
+            <ul id="leftnav" style="float: left">
+                <li><a href="#">Write a Review</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Talk</a></li>
+            </ul>
+            <ul id="rightnav" style="float: right">
+                <!--<li style="border: 3px solid white;border-radius: 10px;display: block;width: 100px;height: 20px;"><a href="#">Sign Up</a></li>-->
+
+                <%if(user){%>
+                <!--<a href="/new" class="ui green button"><i class="icon road"></i>Add New Place</a>-->
+                <!--<a href="/logout" class="ui red button">Logout</a>-->
+                <div class="ui red buttons">
+                    <div style="text-transform: capitalize;padding: 7px;"  class="ui button">
+                        <img style="display: inline;"  width="25px" height="25px" class="ui image centered circular" src=" <%= user.google.name == undefined ? user.userimage == '' ? "./images/male.png" : "./images/uploads/" + user.userimage : user.userimage %>">
+                        <div style="display: inline;">
+                            &nbsp;<%= user.google.name == undefined ? user.local.firstName : user.google.name.split(' ')[0] %>
+                        </div>
+                    </div>
+                    <div id="userbtn" class="ui floating dropdown icon button">
+                        <i class="dropdown icon"></i>
+                        <div style="border-radius: 0px" class="menu">
+                            <a href="/profile" class="item"><i class="icon user circle outline"></i> Profile</a>
+                            <a href="/new" class="item"><i class="database icon"></i> Add new place</a>
+                            <a href="#" class="item"><i class="bookmark icon"></i> Bookmarks</a>
+                            <a href="#" class="item"><i class="marker icon"></i> Been here</a>
+                            <a href="#" class="item"><i class="retweet icon"></i> Reviews (<%= user.reviews != -1 ? user.reviews + 1 : 0%>)</a>
+                            <div class="divider"></div>
+                            <a href="/logout" class="item"><i class="icon remove user"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <%}else{%>
+                <li style="margin-right: 10px"><a href="/login">Login</a></li>
+                <a href="/signup" class="ui teal button"><i class="icon add user"></i>Sign Up</a>
+                <%}%>
+            </ul>
+        </div>
+        <div id="display-contents" style="height: 300px;margin-top: 80px;">
+            <div style="text-align: center" id="logo" class="ui container">
+                <img width="200px" src="../images/Yelp_trademark_RGB.png" alt="Yelp Logo">
+            </div>
+            <div style="padding: 0px;height: 50px;" id="search-bar">
+                <div style="width: 46%;float: left;background-color: white;height: 40px;border-top-left-radius: 5px;border-bottom-left-radius: 5px">
+                    <div style="padding: 0px;width: 100%;height: 40px;overflow: hidden">
+                        <span style="font-size: 18px;font-weight: 700;color: #666666;padding: 7px;display: inline-block;height: 40px;">Find</span>
+                        <input class="search" style="width: 80%;height: 100%;position: relative;top: -1px;border: none;" type="text" placeholder="burgers, barbers, spas, handymen...">
+                    </div>
+                </div>
+                <div style="width: 46%;float: left;height: 40px;background-color: white;">
+                    <div style="padding: 0px;width: 100%;height: 40px;overflow: hidden">
+                        <span style="font-size: 18px;font-weight: 700;color: #666666;padding: 7px;display: inline-block;height: 40px;border-left: 1px solid #CCCCCC">Near</span>
+                        <input class="search" style="width: 80%;height: 100%;position: relative;top: -1px;border: none;" type="text" placeholder="New Delhi, Chandigarh, Mumbai...">
+                    </div>
+                </div>
+                <div style="float: left;width: 8%;height: 40px;">
+                    <button style="border-radius: 0px" class="ui red button"><i style="font-size: 1.4em" class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;margin-top: 90px" id="photo-bomb">
+            <a style="color: white;font-weight: 700" href="#">Melbourne Food Porn Festival</a>
+            <p style="color: white;">Photo By <b>Raghav</b></p>
+        </div>
+    </div>
+</div>
+
+<div style="margin: 50px 0 30px 0" class="ui divider"></div>
+
+<div style="width: 70%" id="hotplaces" class="ui container">
+    <h3 style="text-align: center;color: #d32323;font-size: 17px;">Hot and New Business</h3>
+
+    <div class="ui cards">
+        <% for(let i = 0 ;i < 6 ; i++){ %>
+        <% if(i < data.length){%>
+        <div style="margin-right: 18px" class="card" >
+            <div class="image">
+                <img src="<%= data[i].coverimage%>">
+            </div>
+            <div class="content">
+                <div style="text-transform: capitalize;" class="header" data-html="<div class='header'>User Rating</div><div class='content'><div class='ui star rating'><i class='active icon'></i><i class='active icon'></i><i class='active icon'></i><i class='icon'></i><i class='icon'></i></div></div>"><a href="/biz/<%= data[i]._id%>"><%= data[i].place %></a>&nbsp;<span style="font-size: 12px;color: rgba(0,0,0,.4);">(<%= data[i].reviews%> reviews)</span></div>
+                <div class="meta">
+                    <span style="font-size: 12px" class="date">Joined on <%= data[i].year%></span>
+                </div>
+                <div style="font-size: 14px;margin-top: 20px" class="description">
+                    <%= data[i].description.substr(0,70)%>... <a href="/biz/<%= data[i]._id%>">continue reading</a>
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="meta">
+                   <b>$$..</b> <%= data[i].tags%>
+                </div>
+            </div>
+        </div>
+        <%}%>
+        <%}%>
+
+    </div>
+
+    <h3 style="text-align: center;font-size: 15px;"><a href="#">See more Hot and New Business</a></h3>
+</div>
+
+
+
+
+<!--<script src="./js/jquery.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./css/semantic/dist/semantic.js"></script>
+<script src="./js/script.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#userbtn')
+            .dropdown()
+        ;
+    })
+</script>
+<% include partials/footer.ejs %>
+
+
