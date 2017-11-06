@@ -1,5 +1,5 @@
 {
-  "base": "out\\",
+  "base": "node_modules/",
   "paths": {
     "source": {
       "config": "src/theme.config",
