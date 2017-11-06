@@ -20,7 +20,7 @@
                     <div style="text-transform: capitalize;padding: 7px;"  class="ui button">
                         <img style="display: inline;"  width="25px" height="25px" class="ui image centered circular" src=" <%= user.google.name == undefined ? user.userimage == '' ? "./images/male.png" : "./images/uploads/" + user.userimage : user.userimage %>">
                         <div style="display: inline;">
-                            &nbsp;<%= user.google.name == undefined ? user.local.firstName : user.google.name.split(' ')[0] %>
+                            &nbsp;<%=  user.google.name == undefined ? (user.local.firstName == undefined ? user.facebook.name.split(' ')[0] : user.local.firstName) : user.google.name.split(' ')[0] %>
                         </div>
                     </div>
                     <div id="userbtn" class="ui floating dropdown icon button">

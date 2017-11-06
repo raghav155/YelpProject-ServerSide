@@ -197,6 +197,7 @@ passport.use(new FacebookStrategy({
                 newUser.facebook.token = token;
                 newUser.facebook.name = profile.displayName;
                 newUser.reviews = -1;
+                newUser.userimage = "";
                 newUser.ReviewsSecUser = [];
                 newUser.joinedDate = new Date().toDateString();
                 newUser.photos = 0;
