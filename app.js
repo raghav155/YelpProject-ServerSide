@@ -201,6 +201,7 @@ passport.use(new FacebookStrategy({
                 newUser.ReviewsSecUser = [];
                 newUser.joinedDate = new Date().toDateString();
                 newUser.photos = 0;
+                newUser.userimage = "";
 
                 // newUser.facebook.email = profile.emails[0].value;
                 //console.log(profile);
@@ -404,6 +405,17 @@ app.post('/profile',isLoggedIn,function (req,res) {
                     if(req.file != undefined) {
                         user.userimage = req.file.filename;
                         user.save();
+                        Review.find({},function(err,rev){
+                           // console.log(rev)
+                            rev.forEach(function(val){
+                                if(req.user._id.equals(val.Author.id)){
+                                    val.Author.image = req.user.userimage;
+                                    val.save();
+
+                                }
+                                 
+                            })
+                        })
                     }
                     res.redirect('/profile');
                 }
@@ -475,7 +487,7 @@ app.post('/biz/:id/newreview',isLoggedIn,function (req,res) {
             }else if(req.user.facebook.name){
 
                 rev.Author.username = req.user.facebook.name;
-                rev.Author.islocal = false;
+                rev.Author.islocal = true;
             }else{
                 rev.Author.username = req.user.google.name;
                 rev.Author.islocal = false;
@@ -676,6 +688,6 @@ function isLoggedIn(req,res,next) {
 }
 
 
-app.listen(3001,function () {
-    console.log('Server Started On Port 3001');
+app.listen(80,function () {
+    console.log('Server Started On Port 80');
 })

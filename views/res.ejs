@@ -272,8 +272,7 @@
                                <div id="revheader" class="ui grid">
                                    <div class="two wide column">
 
-                                       <img width="70px" class="ui image circular" src="<%= review.Author.islocal == true ? "../images/uploads/" + review.Author.image : review.Author.image%>" alt="">
-                                   </div>
+                                       <img width="70px" class="ui image circular" src="<%= review.Author.islocal == true ? (review.Author.image == '' ? "./images/male.png" : "./images/uploads/" +  review.Author.image) : review.Author.image%>" alt="">                                   </div>
 
                                    <div class="fourteen wide column">
                                        <h3 style="text-transform: capitalize;margin-bottom: 0px;color: rgba(0,0,0,.7);"><%= review.Author.username%></h3>
@@ -295,8 +294,8 @@
                                        </a>
                                    </div>
                                    <div style="float: right" class=" ui buttons">
-                                       <a href="#ex1" class="ui button editbtn">Edit</a>
-                                       <a class="ui button deletebtn">Delete</a>
+                                       <a revid="<%= review._id %>" href="#ex1" class="ui button editbtn">Edit</a>
+                                       <a revid="<%= review._id%>" resid="<%= rs._id%>" class="ui button deletebtn">Delete</a>
                                    </div>
                                    <div style="clear: both"></div>
                                    <%}else{%>
@@ -310,49 +309,49 @@
                                        </a>
                                    </div>
                                    <%}%>
-                                   <div id="ex3" style="display:none;">
-
-                                       <form style="display: inline;" action="./<%= review._id%>/<%= rs._id%>/deleterev" method="post">
-                                           <h4>Are you sure to delete this review.</h4>
-
-                                           <button type="submit" class="ui primary button">
-                                               Confirm
-                                           </button>
-                                       </form>
-
-
-                                       <a  rel="modal:close" id="disbtn2" class="ui button">
-                                           Discard
-                                       </a>
-
-                                   </div>
-
-                                   <div id="ex1" style="display:none;">
-
-                                       <form style="display: inline;" action="./<%= review._id%>/editrev" method="post">
-                                       <div style="margin-bottom: 20px" class="ui form">
-                                           <div class="field">
-                                               <label>Edit Review</label>
-                                               <textarea name="editcontent" id="textrev"></textarea>
-                                           </div>
-
-                                       </div>
-                                       <button type="submit" class="ui primary button">
-                                           Save
-                                       </button>
-                                       </form>
-
-
-                                       <a  rel="modal:close" id="disbtn" class="ui button">
-                                           Discard
-                                       </a>
-
-                                   </div>
                                </div>
                            </div>
 
 
                         <%})%>
+                         <div id="ex3" style="display:none;">
+
+                                <form style="display: inline;"  method="post">
+                                    <h4>Are you sure to delete this review.</h4>
+
+                                    <button type="submit" class="ui primary button">
+                                        Confirm
+                                    </button>
+                                </form>
+
+
+                                <a  rel="modal:close" id="disbtn2" class="ui button">
+                                    Discard
+                                </a>
+
+                            </div>
+
+                            <div id="ex1" style="display:none;">
+
+                                <form style="display: inline;"  method="post">
+                                    <div style="margin-bottom: 20px" class="ui form">
+                                        <div class="field">
+                                            <label>Edit Review</label>
+                                            <textarea name="editcontent" id="textrev"></textarea>
+                                        </div>
+
+                                    </div>
+                                    <button type="submit" class="ui primary button">
+                                        Save
+                                    </button>
+                                </form>
+
+
+                                <a  rel="modal:close" id="disbtn" class="ui button">
+                                    Discard
+                                </a>
+
+                            </div>
 
                         </div>
 
@@ -487,6 +486,10 @@
             $('#menubar').css('display','flex');
         });
 
+          let revid = $(this).attr('revid');
+        //console.log(resid)
+        $('#ex1 form').attr('action','/biz/'+revid+ "/editrev");
+
 
 //          console.log(document.getElementById('textrev').value)
 //          $('#textrev').append(reqrev.innerText)
@@ -586,6 +589,10 @@
             showClose: false
         })
         $('#menubar').css('display','none');
+        let revid = $(this).attr('revid');
+        let resid = $(this).attr('resid');
+        //console.log(resid)
+        $('#ex3 form').attr('action','/biz/'+revid+"/" + resid + "/deleterev");
     });
 
     $('#userbtn').dropdown();
