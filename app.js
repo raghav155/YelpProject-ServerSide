@@ -623,6 +623,25 @@ app.post('/login',passport.authenticate('local-login',{
     failureFlash: true
 }));
 
+//like review
+app.post('/likerev',function(req,res){
+    Review.findById(req.body.revid,function(err,rev){
+         
+         console.log(req.body.userid);
+        
+         if(rev.revlikeMap.indexOf(req.body.userid) == -1){
+            rev.likes++;
+            rev.revlikeMap.push(req.body.userid);
+         }else{
+             rev.likes--;
+             let index = rev.revlikeMap.indexOf(req.body.userid) ;
+             rev.revlikeMap.splice(index,1);
+         }
+         rev.save();
+         console.log(rev);
+    })
+})
+
 //facebook login-signup
 
 app.get('/auth/facebook',passport.authenticate('facebook',{scope : ['email']}));
