@@ -1,6 +1,12 @@
 var mongoose = require('mongoose');
 var reviewSchema = mongoose.Schema({
 
+    revlikeMap : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "User"
+        }
+    ],
     review : String,
     ratings : Number,
     likes : Number,

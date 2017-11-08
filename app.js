@@ -478,7 +478,8 @@ app.post('/biz/:id/newreview',isLoggedIn,function (req,res) {
             rev.Author.id = req.user._id;
             rev.Author.image = req.user.userimage;
             rev.ratings = parseInt(req.body.rating);
-            console.log(req.body.rating);
+            rev.revlikeMap = [];
+            //console.log(req.body.rating);
 
             if(req.user.local.firstName) {
                 rev.Author.username = req.user.local.firstName + " " + req.user.local.lastName;
