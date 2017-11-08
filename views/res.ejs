@@ -226,7 +226,7 @@
                                         <div style="margin-bottom: 20px" class="ui form">
                                             <div class="field">
                                                 <label style="color: rgba(0,0,0,.5);">Write your Review</label>
-                                                <textarea name="reviewcontent"></textarea>
+                                                <textarea name="reviewcontent" placeholder="Minimum 140 characters"></textarea>
                                             </div>
 
                                         </div>
@@ -250,7 +250,6 @@
                                 </div>
 
                             </div>
-
                         <%}%>
 
                         <div style="padding: 20px;background-color: white;margin-top: 20px;border-top-left-radius: 5px;border-top-right-radius: 5px">
@@ -315,7 +314,7 @@
                                      <% if(review.revlikeMap.indexOf(user._id) != -1 ){  %>
                                      <% var isliked = true;  }else{%>
                                      <% isliked = false }%>
-                                       <div revid="<%= review._id%>" userid= "<%= user._id%>" class="ui button likebtn">
+                                       <div revid="<%= review._id%>" userid= "<%= user._id%>" isliked="<%= isliked%>"  class="ui button likebtn">
                                         <% if(review.revlikeMap.indexOf(user._id) != -1 ){  %>
                                            <i style="color:red" class="heart icon"></i> Like
                                            <%}else{%>
@@ -361,7 +360,7 @@
                                     <div style="margin-bottom: 20px" class="ui form">
                                         <div class="field">
                                             <label>Edit Review</label>
-                                            <textarea name="editcontent" id="textrev"></textarea>
+                                            <textarea name="editcontent" id="textrev" placeholder="Minimum 140 characters"></textarea>
                                         </div>
 
                                     </div>
@@ -432,7 +431,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="./css/semantic/dist/semantic.js"></script>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6jEZLB8qrRJ7AI9K-HfF_x9F2JPA7SjI&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN69DniHFUHDDu5DI7SRGM544RwGq9yFg&callback=initMap">
 </script>
 <script src="./js/jquery.modal.min.js"></script>
 <script src="./js/jquery.rateyo.min.js"></script>
