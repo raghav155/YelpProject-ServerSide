@@ -83,6 +83,8 @@
         </div>
 
     </div>
+<audio id="s1" src="./sounds/you-wouldnt-believe.mp3"></audio>
+<audio id="s2" src="./sounds/inquisitiveness.mp3"></audio>
 
 <!--</div>-->
 
@@ -133,6 +135,7 @@
           </div>
         `
         outputwindow.append(op2);
+        $('#output').scrollTop($('#output').scrollTop()+1000);
     })
 
     socket.on('connected',function (data) {
@@ -165,7 +168,7 @@
                        `
 
         outputwindow.append(output);
-
+        $('#output').scrollTop($('#output').scrollTop()+1000);
     })
 
     var messagebox = $('#message');
@@ -219,14 +222,14 @@
                                         <div class="ui grid">
                                         <div class="two column row">
                                               <div class="left floated column" style="width: 600px;min-height: 170px;border-radius: 3px 3px 3px 3px">
-                                              <div style="display: grid;grid-template-columns: 1fr 4fr;margin-bottom: 10px">
+                                              <div style="display: grid;grid-template-columns: 1fr 4fr;margin-bottom: 10px;width: 400px">
                                                 <div style="height: 155px;width: 125px;">
                                                  <img style="margin-top: 10px;margin-left: 25px" width="70px" class="ui image circular" src=${uimage} alt="">
-                                                 <h5 style="text-transform: capitalize;color: chocolate;text-align: center">${data.username}</h5>
+                                                 <h5 style="text-transform: capitalize;color: chocolate;text-align: center;margin-top: 10px">${data.username}</h5>
                                                 </div>
 
                                                 <div>
-                                                 <h5 style="color: darkturquoise;margin-top: 0px;padding: 20px;font-size: 18px;">${data.message}</h5>
+                                                 <h5 style="color: darkslategray;margin-top: 0px;padding: 20px;font-size: 15px;background-color: mediumturquoise;border-radius: 30px">${data.message}</h5>
                                                 </div>
                                               </div>
                                               </div>
@@ -234,6 +237,8 @@
                                         </div>
                        `
         outputwindow.append(out);
+        document.getElementById("s1").volume = 0.4;
+        $('#s1')[0].play();
         $('#feedback').html("");
         $('#output').scrollTop($('#output').scrollTop()+1000);
 
@@ -252,17 +257,17 @@
                                         <div class="ui grid">
                                         <div class="two column row">
                                               <div class="right floated column" style="width: 600px;min-height: 170px;border-radius: 3px 3px 3px 3px">
-                                              <div style="display: grid;grid-template-columns: 1fr 4fr;margin-bottom: 10px">
+                                              <div style="display: grid;grid-template-columns: 1fr 4fr;margin-bottom: 10px;width: 400px;">
 
 
 
                                                 <div style="height: 155px;width: 125px;">
 
                                                  <img style="margin-top: 10px;margin-left: 25px" width="70px" class="ui image circular" src=${uimage} alt="">
-                                                 <h5 style="text-transform: capitalize;color: chocolate;text-align: center">${data.username}</h5>
+                                                 <h5 style="text-transform: capitalize;color: chocolate;text-align: center;margin-top: 10px;">${data.username}</h5>
                                                 </div>
                                                 <div>
-                                                 <h5 style="color: crimson;margin-top: 0px;padding: 20px;font-size: 18px;">${data.message}</h5>
+                                                 <h5 style="color: dimgrey;margin-top: 0px;padding: 20px;font-size: 15px; background-color: beige;border-radius: 30px">${data.message}</h5>
                                                 </div>
 
 
@@ -272,6 +277,8 @@
                                         </div>
                        `
         outputwindow.append(out);
+        document.getElementById("s2").volume = 0.4;
+        $('#s2')[0].play();
         $('#feedback').html("");
         $('#output').scrollTop($('#output').scrollTop()+1000);
     });
