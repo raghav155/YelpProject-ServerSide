@@ -8,7 +8,11 @@
             <ul id="leftnav" style="float: left">
                 <li><a href="#">Write a Review</a></li>
                 <li><a href="#">Events</a></li>
-                <li><a href="#">Talk</a></li>
+                <%if(user){%>
+                <li><a href="/talk">Talk</a></li>
+                <%}else{%>
+                <li><a href="/login">Talk</a></li>
+                <%}%>
             </ul>
             <ul id="rightnav" style="float: right">
                 <!--<li style="border: 3px solid white;border-radius: 10px;display: block;width: 100px;height: 20px;"><a href="#">Sign Up</a></li>-->

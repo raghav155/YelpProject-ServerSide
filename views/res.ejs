@@ -501,9 +501,7 @@
                 $('#menubar').css('display','flex');
 
         })
-        $('#discardbtn').on('click',function () {
-            $('#menubar').css('display','flex');
-        });
+       
 
           let revid = $(this).attr('revid');
         //console.log(resid)
@@ -596,6 +594,10 @@
                 $('#ratingtext').val(rating/20);
             }
         })
+
+         $('#discardbtn').on('click',function () {
+            $('#menubar').css('display','flex');
+        });
 
 
     });

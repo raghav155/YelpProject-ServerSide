@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21bdb45b-9463-458a-9f83-e44297968339" name="Default" comment="" />
+    <list default="true" id="21bdb45b-9463-458a-9f83-e44297968339" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/res.ejs" afterPath="$PROJECT_DIR$/views/res.ejs" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -17,21 +22,11 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="283" column="31" lean-forward="false" selection-start-line="283" selection-start-column="31" selection-end-line="283" selection-end-column="31" />
+            <state relative-caret-position="6954">
+              <caret line="422" column="0" lean-forward="false" selection-start-line="422" selection-start-column="0" selection-end-line="422" selection-end-column="0" />
               <folding>
                 <element signature="n#!!block;n#checkFileType#0" expanded="false" />
-                <element signature="e#8005#8326#0" expanded="false" />
-                <element signature="e#8505#8571#0" expanded="false" />
-                <element signature="e#8626#8652#0" expanded="false" />
-                <element signature="e#8709#9706#0" expanded="false" />
-                <element signature="e#9763#10438#0" expanded="false" />
-                <element signature="e#15833#16074#0" expanded="false" />
-                <element signature="e#17264#17351#0" expanded="false" />
-                <element signature="e#17410#17494#0" expanded="false" />
-                <element signature="e#17679#17752#0" expanded="false" />
-                <element signature="e#17980#18058#0" expanded="false" />
-                <element signature="e#18125#18169#0" expanded="false" />
+                <element signature="e#12276#12912#0" expanded="false" />
                 <element signature="n#!!block;n#IsAuthenticatedReview#0" expanded="false" />
                 <element signature="n#!!block;n#isLoggedIn#0" expanded="false" />
               </folding>
@@ -113,7 +108,7 @@
         <entry file="file://$PROJECT_DIR$/Models/Reviews.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+              <caret line="4" column="9" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -150,6 +145,9 @@
       <find>reviewn</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
@@ -172,10 +170,10 @@
         <option value="$PROJECT_DIR$/views/partials/header.ejs" />
         <option value="$PROJECT_DIR$/Models/Reviews.js" />
         <option value="$PROJECT_DIR$/Models/User.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/views/res.ejs" />
         <option value="$PROJECT_DIR$/views/profile.ejs" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -224,7 +222,7 @@
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Project" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -301,14 +299,17 @@
       <workItem from="1509251268272" duration="151000" />
       <workItem from="1509251450839" duration="3140000" />
       <workItem from="1509259910787" duration="596000" />
+      <workItem from="1510332500842" duration="849000" />
+      <workItem from="1510393059872" duration="1206000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="217867000" />
+    <option name="totallyTimeSpent" value="219922000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -318,7 +319,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -437,17 +438,7 @@
           <caret line="55" column="7" lean-forward="false" selection-start-line="55" selection-start-column="7" selection-end-line="55" selection-end-column="7" />
           <folding>
             <element signature="n#!!block;n#checkFileType#0" expanded="false" />
-            <element signature="e#8005#8326#0" expanded="false" />
-            <element signature="e#8505#8571#0" expanded="false" />
-            <element signature="e#8626#8652#0" expanded="false" />
-            <element signature="e#8709#9706#0" expanded="false" />
-            <element signature="e#9763#10438#0" expanded="false" />
-            <element signature="e#15833#16074#0" expanded="false" />
-            <element signature="e#17264#17351#0" expanded="false" />
-            <element signature="e#17410#17494#0" expanded="false" />
-            <element signature="e#17679#17752#0" expanded="false" />
-            <element signature="e#17980#18058#0" expanded="false" />
-            <element signature="e#18125#18169#0" expanded="false" />
+            <element signature="e#12276#12912#0" expanded="false" />
             <element signature="n#!!block;n#IsAuthenticatedReview#0" expanded="false" />
             <element signature="n#!!block;n#isLoggedIn#0" expanded="false" />
           </folding>
@@ -497,17 +488,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#checkFileType#0" expanded="false" />
-            <element signature="e#8005#8326#0" expanded="false" />
-            <element signature="e#8505#8571#0" expanded="false" />
-            <element signature="e#8626#8652#0" expanded="false" />
-            <element signature="e#8709#9706#0" expanded="false" />
-            <element signature="e#9763#10438#0" expanded="false" />
-            <element signature="e#15833#16074#0" expanded="false" />
-            <element signature="e#17264#17351#0" expanded="false" />
-            <element signature="e#17410#17494#0" expanded="false" />
-            <element signature="e#17679#17752#0" expanded="false" />
-            <element signature="e#17980#18058#0" expanded="false" />
-            <element signature="e#18125#18169#0" expanded="false" />
+            <element signature="e#12276#12912#0" expanded="false" />
             <element signature="n#!!block;n#IsAuthenticatedReview#0" expanded="false" />
             <element signature="n#!!block;n#isLoggedIn#0" expanded="false" />
           </folding>
@@ -585,17 +566,7 @@
           <caret line="4" column="53" lean-forward="false" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
           <folding>
             <element signature="n#!!block;n#checkFileType#0" expanded="false" />
-            <element signature="e#8005#8326#0" expanded="false" />
-            <element signature="e#8505#8571#0" expanded="false" />
-            <element signature="e#8626#8652#0" expanded="false" />
-            <element signature="e#8709#9706#0" expanded="false" />
-            <element signature="e#9763#10438#0" expanded="false" />
-            <element signature="e#15833#16074#0" expanded="false" />
-            <element signature="e#17264#17351#0" expanded="false" />
-            <element signature="e#17410#17494#0" expanded="false" />
-            <element signature="e#17679#17752#0" expanded="false" />
-            <element signature="e#17980#18058#0" expanded="false" />
-            <element signature="e#18125#18169#0" expanded="false" />
+            <element signature="e#12276#12912#0" expanded="false" />
             <element signature="n#!!block;n#IsAuthenticatedReview#0" expanded="false" />
             <element signature="n#!!block;n#isLoggedIn#0" expanded="false" />
           </folding>
@@ -630,17 +601,7 @@
           <caret line="4" column="53" lean-forward="false" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
           <folding>
             <element signature="n#!!block;n#checkFileType#0" expanded="false" />
-            <element signature="e#8005#8326#0" expanded="false" />
-            <element signature="e#8505#8571#0" expanded="false" />
-            <element signature="e#8626#8652#0" expanded="false" />
-            <element signature="e#8709#9706#0" expanded="false" />
-            <element signature="e#9763#10438#0" expanded="false" />
-            <element signature="e#15833#16074#0" expanded="false" />
-            <element signature="e#17264#17351#0" expanded="false" />
-            <element signature="e#17410#17494#0" expanded="false" />
-            <element signature="e#17679#17752#0" expanded="false" />
-            <element signature="e#17980#18058#0" expanded="false" />
-            <element signature="e#18125#18169#0" expanded="false" />
+            <element signature="e#12276#12912#0" expanded="false" />
             <element signature="n#!!block;n#IsAuthenticatedReview#0" expanded="false" />
             <element signature="n#!!block;n#isLoggedIn#0" expanded="false" />
           </folding>
@@ -661,17 +622,7 @@
           <caret line="4" column="53" lean-forward="false" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
           <folding>
             <element signature="n#!!block;n#checkFileType#0" expanded="false" />
-            <element signature="e#8005#8326#0" expanded="false" />
-            <element signature="e#8505#8571#0" expanded="false" />
-            <element signature="e#8626#8652#0" expanded="false" />
-            <element signature="e#8709#9706#0" expanded="false" />
-            <element signature="e#9763#10438#0" expanded="false" />
-            <element signature="e#15833#16074#0" expanded="false" />
-            <element signature="e#17264#17351#0" expanded="false" />
-            <element signature="e#17410#17494#0" expanded="false" />
-            <element signature="e#17679#17752#0" expanded="false" />
-            <element signature="e#17980#18058#0" expanded="false" />
-            <element signature="e#18125#18169#0" expanded="false" />
+            <element signature="e#12276#12912#0" expanded="false" />
             <element signature="n#!!block;n#IsAuthenticatedReview#0" expanded="false" />
             <element signature="n#!!block;n#isLoggedIn#0" expanded="false" />
           </folding>
@@ -779,7 +730,7 @@
     <entry file="file://$PROJECT_DIR$/Models/Reviews.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+          <caret line="4" column="9" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -818,21 +769,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="283" column="31" lean-forward="false" selection-start-line="283" selection-start-column="31" selection-end-line="283" selection-end-column="31" />
+        <state relative-caret-position="6954">
+          <caret line="422" column="0" lean-forward="false" selection-start-line="422" selection-start-column="0" selection-end-line="422" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#checkFileType#0" expanded="false" />
-            <element signature="e#8005#8326#0" expanded="false" />
-            <element signature="e#8505#8571#0" expanded="false" />
-            <element signature="e#8626#8652#0" expanded="false" />
-            <element signature="e#8709#9706#0" expanded="false" />
-            <element signature="e#9763#10438#0" expanded="false" />
-            <element signature="e#15833#16074#0" expanded="false" />
-            <element signature="e#17264#17351#0" expanded="false" />
-            <element signature="e#17410#17494#0" expanded="false" />
-            <element signature="e#17679#17752#0" expanded="false" />
-            <element signature="e#17980#18058#0" expanded="false" />
-            <element signature="e#18125#18169#0" expanded="false" />
+            <element signature="e#12276#12912#0" expanded="false" />
             <element signature="n#!!block;n#IsAuthenticatedReview#0" expanded="false" />
             <element signature="n#!!block;n#isLoggedIn#0" expanded="false" />
           </folding>

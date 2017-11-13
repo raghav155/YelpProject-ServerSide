@@ -1,0 +1,299 @@
+<% include partials/header.ejs %>
+<title>Talk</title>
+</head>
+<body>
+
+<div style="background: #d32323 url(https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/c146b0884f6a/assets/img/structural/header_stars.png) no-repeat center;height: 90px;" class="logonav">
+    <div style="width: 75%" class="ui container grid">
+        <div class="two wide column">
+            <a href="/"><img width="110px" src="../images/Yelp_trademark_RGB.png" alt="Yelp Logo"></a>
+        </div>
+        <div class="eleven wide column">
+            <div style="padding: 0px;height: 50px;margin-top: 20px" id="search-bar">
+                <div style="width: 46%;float: left;background-color: white;height: 40px;border-top-left-radius: 5px;border-bottom-left-radius: 5px">
+                    <div style="padding: 0px;width: 100%;height: 40px;overflow: hidden">
+                        <span style="font-size: 18px;font-weight: 700;color: #666666;padding: 7px;display: inline-block;height: 40px;">Find</span>
+                        <input class="search" style="width: 80%;height: 100%;position: relative;top: -1px;border: none;" type="text" placeholder="burgers, barbers, spas, handymen...">
+                    </div>
+                </div>
+                <div style="width: 46%;float: left;height: 40px;background-color: white;">
+                    <div style="padding: 0px;width: 100%;height: 40px;overflow: hidden">
+                        <span style="font-size: 18px;font-weight: 700;color: #666666;padding: 7px;display: inline-block;height: 40px;border-left: 1px solid #CCCCCC">Near</span>
+                        <input class="search" style="width: 80%;height: 100%;position: relative;top: -1px;border: none;" type="text" placeholder="New Delhi, Chandigarh, Mumbai...">
+                    </div>
+                </div>
+                <div style="float: left;width: 8%;height: 40px;">
+                    <button style="border-radius: 0px;background-color: #bd1f1f;color:white" class="ui  button"><i style="font-size: 1.4em" class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="three wide column">
+            <%if(user){%>
+
+
+            <div style="padding-top: 20px;"  class="ui buttons">
+                <div style="text-transform: capitalize;padding: 7px;background-color: #ba1e2b;color: white;"  class="ui button">
+                    <img style="display: inline;"  width="25px" height="25px" class="ui image centered circular" src=" <%= user.google.name == undefined ? user.userimage == '' ? "./images/male.png" : "./images/uploads/" + user.userimage : user.userimage%>">
+                    <div style="display: inline;">
+                        &nbsp;<%= user.google.name == undefined ? (user.local.firstName == undefined ? user.facebook.name.split(' ')[0] : user.local.firstName) : user.google.name.split(' ')[0] %>
+                    </div>
+                </div>
+                <div id="userbtn" style="background-color: #ba1e2b;color: white;" class="ui floating dropdown icon button">
+                    <i class="dropdown icon"></i>
+                    <div style="border-radius: 0px;" class="menu">
+                        <a href="/profile" class="item"><i class="icon user circle outline"></i> Profile</a>
+                        <a href="/new" class="item"><i class="database icon"></i> Add new place</a>
+                        <a href="#" class="item"><i class="bookmark icon"></i> Bookmarks</a>
+                        <a href="#" class="item"><i class="marker icon"></i> Been here</a>
+                        <a href="#" class="item"><i class="retweet icon"></i> Reviews (<%= user.reviews != -1 ? user.reviews + 1 : 0%>)</a>
+                        <div class="divider"></div>
+                        <a href="/logout" class="item"><i class="icon remove user"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <%}else{%>
+            <a style="background-color: #bd1f1f;color:white;margin-top: 20px" href="/signup" class="ui button">SignUp</a>
+
+            <%}%>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    <div style="padding: 30px;" id="afterstartchat">
+        <div  curuserimage=<%= user.google.name == undefined ? user.userimage == '' ? "./images/male.png" : "./images/uploads/" + user.userimage : user.userimage%> curuser=<%= user.google.name == undefined ? (user.local.firstName == undefined ? user.facebook.name.split(' ')[0] : user.local.firstName) : user.google.name.split(' ')[0]%> style="padding: 30px;height: 370px;border-radius: 3px;border: .5px solid darkgray;overflow-y: scroll" id="output">
+
+        </div>
+
+        <div id="feedback" style="height: 40px;padding: 10px;text-align: center;">
+
+        </div>
+
+        <div style="position:fixed;bottom:10px;width: 95%;" class="ui form">
+
+            <div class="field">
+
+                <textarea id="message" rows="2" placeholder="Enter your message"></textarea>
+            </div>
+            <button id="sendbtn" style="background-color: #5564df;color: white;" class="fluid ui button"><i class="fa fa-paper-plane" aria-hidden="true"></i>
+                 Send Message</button>
+        </div>
+
+    </div>
+
+<!--</div>-->
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./js/socket.io.js"></script>
+<script src="./css/semantic/dist/semantic.js"></script>
+<script src="./js/script.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('#userbtn')
+            .dropdown()
+        ;
+    })
+    //console.log('resolved')
+    var cuser = $('#output').attr('curuser');
+    var cuserimage = $('#output').attr('curuserimage');
+    //var iug = $('#output').attr('isusergoogle');
+//    console.log(cuser)
+    var outputwindow = $('#output');
+    var socket = io("http://127.0.0.1:3000",{query :{
+        user : cuser,
+        userimage : cuserimage,
+
+    }});
+    socket.on('initial',function (data) {
+        //console.log(data)
+        let op = `
+          <div style="text-align: center;margin-bottom: 50px">
+             <h5 style="color: deeppink;margin-bottom: 5px">Welcome <em style="text-transform: capitalize">${data.username}</em> to Socket.io chat---</h5>
+             <h6 style="font-size: 12px;color: cornflowerblue">There are ${data.usernum - 1} users available</h6>
+          </div>
+        `
+
+        outputwindow.append(op);
+    })
+
+    socket.on('gone',function (data) {
+        let op2 =  `
+          <div style="text-align: center;margin-bottom: 50px">
+             <h5 style="color: mediumseagreen;margin-bottom: 5px"><em style="text-transform: capitalize">${data.username} has left!!</em> </h5>
+             <h6 style="font-size: 12px;color: cornflowerblue">There are ${data.usernum - 1} users available</h6>
+          </div>
+        `
+        outputwindow.append(op2);
+    })
+
+    socket.on('connected',function (data) {
+        console.log(data.username);
+        let uimage = '';
+
+        if(data.userimage == ''){
+            uimage = './images/male.png'
+        }else{
+            uimage =  data.userimage
+        }
+
+                        let output = `
+                                        <div class="ui two column centered grid">
+                                          <div class="column" style="width: 600px;height: 170px;border-radius: 3px 3px 3px 3px">
+                                          <div style="display: grid;grid-template-columns: 1fr 4fr;margin-bottom: 10px">
+                                            <div style="height: 155px;">
+                                             <img style="margin-top: 10px;margin-left: 20px" width="70px" class="ui image circular" src=${uimage} alt="">
+
+                                            </div>
+
+                                            <div>
+                                             <h2 style="color: #636677;padding: 20px"> <em style="text-transform: capitalize">${data.username}</em> has joined the chat!</h2>
+                                             <h5 style="color: #636677;margin-top: 0px;padding: 20px;position:relative;top: -40px;">Send them a message from the form below..</h5>
+                                            </div>
+                                          </div>
+                                          </div>
+
+                                        </div>
+                       `
+
+        outputwindow.append(output);
+
+    })
+
+    var messagebox = $('#message');
+    messagebox.keypress(function () {
+        socket.emit('typing');
+    })
+
+    messagebox.keyup(function () {
+        if(messagebox[0].value.length == 0){
+            socket.emit('keyup');
+        }
+
+    })
+
+    socket.on('typing',function (username) {
+        //console.log(messagebox[0].value)
+        let ihtml =  `
+         <h5 style="color: dimgrey;">
+           <em>${username} is typing... </em>
+         </h5>
+        `
+        $('#feedback').html(ihtml);
+    })
+
+    socket.on('keyup',function () {
+        $('#feedback').html("");
+    })
+
+    messagebox.keypress(function (e) {
+        if(e.which == 13){
+            socket.emit('send',$($.parseHTML(messagebox[0].value)).text());
+            $('#message').val('')
+        }
+    })
+
+    $('#sendbtn').on('click',function () {
+        socket.emit('send',$($.parseHTML(messagebox[0].value)).text());
+        $('#message').val('')
+    })
+    
+    socket.on('send',function (data) {
+        let uimage = '';
+
+
+        if(data.userimage == ''){
+            uimage = './images/male.png'
+        }else{
+            uimage =  data.userimage
+        }
+        let out = `
+                                        <div class="ui grid">
+                                        <div class="two column row">
+                                              <div class="left floated column" style="width: 600px;min-height: 170px;border-radius: 3px 3px 3px 3px">
+                                              <div style="display: grid;grid-template-columns: 1fr 4fr;margin-bottom: 10px">
+                                                <div style="height: 155px;width: 125px;">
+                                                 <img style="margin-top: 10px;margin-left: 25px" width="70px" class="ui image circular" src=${uimage} alt="">
+                                                 <h5 style="text-transform: capitalize;color: chocolate;text-align: center">${data.username}</h5>
+                                                </div>
+
+                                                <div>
+                                                 <h5 style="color: darkturquoise;margin-top: 0px;padding: 20px;font-size: 18px;">${data.message}</h5>
+                                                </div>
+                                              </div>
+                                              </div>
+                                        </div>
+                                        </div>
+                       `
+        outputwindow.append(out);
+        $('#feedback').html("");
+        $('#output').scrollTop($('#output').scrollTop()+1000);
+
+    });
+
+    socket.on('psend',function (data) {
+        let uimage = '';
+
+            if(data.userimage == ''){
+                uimage = './images/male.png'
+            }else{
+                uimage =  data.userimage
+            }
+
+        let out = `
+                                        <div class="ui grid">
+                                        <div class="two column row">
+                                              <div class="right floated column" style="width: 600px;min-height: 170px;border-radius: 3px 3px 3px 3px">
+                                              <div style="display: grid;grid-template-columns: 1fr 4fr;margin-bottom: 10px">
+
+
+
+                                                <div style="height: 155px;width: 125px;">
+
+                                                 <img style="margin-top: 10px;margin-left: 25px" width="70px" class="ui image circular" src=${uimage} alt="">
+                                                 <h5 style="text-transform: capitalize;color: chocolate;text-align: center">${data.username}</h5>
+                                                </div>
+                                                <div>
+                                                 <h5 style="color: crimson;margin-top: 0px;padding: 20px;font-size: 18px;">${data.message}</h5>
+                                                </div>
+
+
+                                              </div>
+                                              </div>
+                                        </div>
+                                        </div>
+                       `
+        outputwindow.append(out);
+        $('#feedback').html("");
+        $('#output').scrollTop($('#output').scrollTop()+1000);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+<% include partials/footer.ejs%>

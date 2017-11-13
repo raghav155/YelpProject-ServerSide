@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const methodOverride = require('method-override');
 const rs = require('./Models/Restaurant.js');
+const uid = require('uid');
 const User = require('./Models/User.js');
 const Review = require('./Models/Reviews');
 const bodyParser = require('body-parser');
@@ -13,6 +14,8 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 var multer = require('multer');
+var users = [];
+var usernum = 0;
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/images/uploads')
@@ -48,6 +51,8 @@ function checkFileType(file,cb) {
 }
 const expresssession = require('express-session');
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 app.set("view engine", "ejs");
 //require('./config/passport.js')(passport);
@@ -112,6 +117,7 @@ passport.use('local-signup',new LocalStrategy({  //signup Strategy
                     newUser.ReviewsSecUser = [];
                     newUser.joinedDate = new Date().toDateString();
                     newUser.photos = 0;
+                    newUser.chatuid = uid();
                     // console.log(newUser);
                     // console.log('hiii');
 
@@ -202,6 +208,7 @@ passport.use(new FacebookStrategy({
                 newUser.joinedDate = new Date().toDateString();
                 newUser.photos = 0;
                 newUser.userimage = "";
+                newUser.chatuid = uid();
 
                 // newUser.facebook.email = profile.emails[0].value;
                 //console.log(profile);
@@ -255,6 +262,7 @@ passport.use(new GoogleStrategy({
                 newUser.userimage = profile._json.image.url;
                 newUser.joinedDate = new Date().toDateString();
                 newUser.photos = 0;
+                newUser.chatuid = uid();
 
                 // save the user
                 newUser.save(function(err) {
@@ -398,28 +406,39 @@ app.post('/profile',isLoggedIn,function (req,res) {
             res.render('profile',{msg : err,user : req.user})
         }else{
             //console.log(req.user);
-            User.findById(req.user._id,function (err,user) {
-                if(err){
-                    throw err;
-                }else{
-                    if(req.file != undefined) {
-                        user.userimage = req.file.filename;
-                        user.save();
-                        Review.find({},function(err,rev){
-                           // console.log(rev)
-                            rev.forEach(function(val){
-                                if(req.user._id.equals(val.Author.id)){
-                                    val.Author.image = req.user.userimage;
-                                    val.save();
+            if(req.file != undefined) {
+                console.log(req.file.filename)
+                let pr = new Promise(function (resolve,reject) {
+                    req.user.userimage = req.file.filename;
+                    req.user.save();
+                    resolve();
+                }).then(function () {
+                    Review.find({},function(err,rev){
 
-                                }
-                                 
-                            })
+                        rev.forEach(function(val){
+                            // console.log(val)
+                            //  console.log(req.user._id)
+                            //  console.log(val.Author.id)
+                            console.log(req.user)
+                            if(req.user._id.equals(val.Author.id)){
+
+                                val.Author.image = req.user.userimage;
+                                val.save();
+
+                            }
+
                         })
-                    }
-                    res.redirect('/profile');
-                }
-            })
+
+                            res.redirect('/profile');
+
+                    })
+                }).catch(function () {
+                    console.log('error uploading photo')
+                })
+
+            }else{
+                res.redirect('/profile')
+            }
         }
     })
 })
@@ -610,6 +629,82 @@ app.post('/biz/:id/:id2/deleterev',IsAuthenticatedReview,function (req,res) {
     })
 })
 
+app.get('/talk',function (req,res) {
+    if(req.user == undefined){
+        res.render('login',{message : "You need to login first"})
+    }else {
+        res.render('talk', {user: req.user});
+       // console.log('startfromhere')
+
+    }
+})
+
+io.on('connection',function (socket) {
+    console.log(socket.handshake.query)
+    var curuser = socket.handshake.query.user;
+    var userimage = socket.handshake.query.userimage;
+
+    console.log('a new user connected');
+    if(curuser) {
+        users[socket.id] = curuser;
+    }
+        usernum++;
+    console.log(usernum)
+    console.log(users)
+    //console.log(usernum)
+    socket.emit('initial',{
+        usernum : usernum,
+        username : users[socket.id]
+    });
+    socket.broadcast.emit('connected',{
+        username : users[socket.id],
+        usernum : usernum,
+        userimage : userimage,
+
+    })
+
+    socket.on('typing',function () {
+        socket.broadcast.emit('typing',users[socket.id])
+    });
+    socket.on('keyup',function () {
+        socket.broadcast.emit('keyup')
+    });
+
+    socket.on('send',function (message) {
+        socket.broadcast.emit('send',{
+            username : users[socket.id],
+            message : message,
+            userimage : userimage,
+
+        })
+        socket.emit('psend',{
+            username : users[socket.id],
+            message : message,
+            userimage : userimage,
+
+        })
+    })
+    //console.log(users)
+    socket.on('disconnect',function () {
+
+
+        //console.log(users)
+        usernum--;
+
+        socket.broadcast.emit('gone',{
+            usernum : usernum,
+            username : users[socket.id]
+        })
+
+        delete users[socket.id];
+        socket.broadcast.emit('keyup')
+       // console.log(usernum)
+        //console.log(users)
+        console.log('user disconnected');
+
+    })
+})
+
 //local login-signup
 app.post('/signup',passport.authenticate('local-signup',{
     successRedirect : '/',
@@ -708,6 +803,6 @@ function isLoggedIn(req,res,next) {
 }
 
 
-app.listen(80,function () {
+http.listen(80,function () {
     console.log('Server Started On Port 80');
 })

@@ -26,6 +26,8 @@
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "rateyo": "^2.3.3",
-    "semantic-ui": "^2.2.13"
+    "semantic-ui": "^2.2.13",
+    "socket.io": "^2.0.4",
+    "uid": "0.0.2"
   }
 }
